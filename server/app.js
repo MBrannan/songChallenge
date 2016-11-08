@@ -25,6 +25,12 @@ app.get('/songs', function(req, res) {
 app.post('/songs', function(req, res) {
   console.log("REQ body: ", req.body);
   var newSong = req.body;
+  if (newSong.title == "") {
+    res.sendStatus(400);
+  }
+  if (newSong.artist == "") {
+    res.sendStatus(400);
+  }
   songs.push(newSong);
   res.sendStatus(201);
 });

@@ -3,10 +3,17 @@ $(document).ready(function() {
 
   $("#postSongForm").on("submit", function(event){
     event.preventDefault();
-      var newSong = {};
+    var newSong = {};
     $.each($('#postSongForm').serializeArray(), function(i, field) {
       newSong[field.name] = field.value;
     });
+
+    if (newSong.title == "") {
+      alert("Cannot leave title field blank");
+    }
+    else if (newSong.artist == "") {
+      alert("Cannot leave artist field blank");
+    } else {
 
     console.log(newSong);
 
@@ -23,8 +30,8 @@ $(document).ready(function() {
         }
       }
     })
-
-  });
+  }
+});
 
   getSongs();
 
