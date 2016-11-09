@@ -1,6 +1,3 @@
-var d = new Date();
-var dateAdded = d.toLocaleDateString();
-
 $(document).ready(function() {
   console.log("it's alive!");
 
@@ -10,6 +7,8 @@ $(document).ready(function() {
     $.each($('#postSongForm').serializeArray(), function(i, field) {
       newSong[field.name] = field.value;
     });
+
+
 
     if (newSong.title == "") {
       alert("Cannot leave title field blank");
@@ -50,13 +49,13 @@ $(document).ready(function() {
 
   function songsToDom(songs) {
     $("#songContainer").empty();
-
+      console.log(songs);
     for (var i = 0; i < songs.length; i++) {
       $("#songContainer").append('<div class="song"></div>');
       var $el = $("#songContainer").children().last();
       $el.append('<h3>' + songs[i].title  + '</h3>');
-      $el.append('<p>By : ' + songs[i].artist + '</p>');
-      $el.append('<p>Date Added : ' + dateAdded + '</p>');
+      $el.append('<p>By: ' + songs[i].artist + '</p>');
+      $el.append('<p>Date Added: ' + songs[i].date + '</p>');
     }
   }
 });

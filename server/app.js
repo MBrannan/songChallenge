@@ -3,8 +3,6 @@ var express = require('express');
 var app = express();
 var path = require('path');
 var bodyParser = require('body-parser');
-var d = new Date();
-var dateAdded = d.toLocaleDateString();
 
 //puts post request body data and store it on req.body
 app.use(bodyParser.urlencoded({extended: true}));
@@ -14,7 +12,8 @@ app.set('port', process.env.PORT || 3000);
 var songs = [
    {
       artist: "Bruce Springsteen",
-      title: "Born in the U.S.A."
+      title: "Born in the U.S.A.",
+      date: "11/8/2016"
    }
 ];
 
@@ -27,20 +26,22 @@ app.get('/songs', function(req, res) {
 app.post('/songs', function(req, res) {
   console.log("REQ body: ", req.body);
   var newSong = req.body;
+  var isDuplicate = false;
   for (i = 0; i < songs.length; i++) {
     if (newSong.title == songs[i].title && newSong.artist == songs[i].artist) {
       res.sendStatus(400);
+      isDuplicate = true;
     }
-    if (newSong.title == "") {
+  }
+  if (isDuplicate == true || newSong.title == "" || (newSong.artist == "")) {
       res.sendStatus(400);
-    }
+  } else {
+      var currentDate = new Date();
+      newSong.date = currentDate.toLocaleDateString();
+      console.log(newSong.date);
+      songs.push(newSong);
+      res.sendStatus(201);
   }
-  if (newSong.artist == "") {
-    res.sendStatus(400);
-  }
-  newSong.date = dateAdded;
-  songs.push(newSong);
-  res.sendStatus(201);
 });
 
 // static file routing
