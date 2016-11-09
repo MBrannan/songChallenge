@@ -6,10 +6,8 @@ $(document).ready(function() {
     var newSong = {};
     $.each($('#postSongForm').serializeArray(), function(i, field) {
       newSong[field.name] = field.value;
-     $('input[type="text"]').val('');  
+     $('input[type="text"]').val('');
     });
-
-
 
     if (newSong.title == "") {
       alert("Cannot leave title field blank");
@@ -18,18 +16,21 @@ $(document).ready(function() {
       alert("Cannot leave artist field blank");
     } else {
 
+
     $.ajax({
       type:'POST',
       url:'/songs',
       data: newSong,
       success: function(response) {
-        console.log(response);
         if(response == "Created") {
           getSongs();
         } else {
           alert("no song for u");
         }
-      }
+      },
+      error: function(response) {
+          alert("Cannot add duplicate songs");
+        }
     })
   }
 });
