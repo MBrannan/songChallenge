@@ -3,6 +3,8 @@ var express = require('express');
 var app = express();
 var path = require('path');
 var bodyParser = require('body-parser');
+var d = new Date();
+var dateAdded = d.toLocaleDateString();
 
 //puts post request body data and store it on req.body
 app.use(bodyParser.urlencoded({extended: true}));
@@ -25,12 +27,18 @@ app.get('/songs', function(req, res) {
 app.post('/songs', function(req, res) {
   console.log("REQ body: ", req.body);
   var newSong = req.body;
-  if (newSong.title == "") {
-    res.sendStatus(400);
+  for (i = 0; i < songs.length; i++) {
+    if (newSong.title == songs[i].title && newSong.artist == songs[i].artist) {
+      res.sendStatus(400);
+    }
+    if (newSong.title == "") {
+      res.sendStatus(400);
+    }
   }
   if (newSong.artist == "") {
     res.sendStatus(400);
   }
+  newSong.date = dateAdded;
   songs.push(newSong);
   res.sendStatus(201);
 });
