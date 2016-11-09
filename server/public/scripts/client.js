@@ -6,6 +6,7 @@ $(document).ready(function() {
     var newSong = {};
     $.each($('#postSongForm').serializeArray(), function(i, field) {
       newSong[field.name] = field.value;
+     $('input[type="text"]').val('');  
     });
 
 
