@@ -17,8 +17,6 @@ $(document).ready(function() {
       alert("Cannot leave artist field blank");
     } else {
 
-    console.log(newSong);
-
     $.ajax({
       type:'POST',
       url:'/songs',

@@ -34,7 +34,8 @@ app.post('/songs', function(req, res) {
     }
   }
   if (isDuplicate == true || newSong.title == "" || (newSong.artist == "")) {
-      res.sendStatus(400);
+    console.log("Cannot add duplicate songs");
+    res.sendStatus(400);
   } else {
       var currentDate = new Date();
       newSong.date = currentDate.toLocaleDateString();
